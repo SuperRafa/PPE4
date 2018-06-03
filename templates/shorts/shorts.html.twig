@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+    {% set foo = 3 %}
+    {% for Shortsmf in unShort %}
+    {% if foo==3 %}
+        <div class="row" style="text-align: center">
+            {% set foo= 0 %}
+        {% endif %}
+            <div class="col-sm-3 offset-1">
+                <div class="shorts mb-3 box-shadow" style="width: 250px; border-radius: 25px; margin: 15px; border: outset;">
+                    <img class="card-img-top" src="{{ Shortsmf.image|e }}" alt="Image manquante" style="border-radius:20px;">
+                    <div class="card-body">
+                        <p class="card-text" style="color: silver; font-weight: bolder;">{{ Shortsmf.libellle|e }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    {% if Shortsmf.stock|e > 0 %}
+                                        <a class="btn btn-sm btn-outline-secondary">Acheter</a>
+                                    {% else %}
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" disabled="disabled">chez pas</button>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ path("login") }}">Connectez-vous pour acheter</a>
+                                {% endif %}
+                                <button type="button" class="btn btn-sm btn-outline-secondary">voir</button>
+                            </div>
+                            {% set test="" %}
+                            <small class="text-muted" style="color: silver; font-weight: bolder">{{ Shortsmf.price|e }} $</small>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock body %}
